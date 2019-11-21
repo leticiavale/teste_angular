@@ -1,0 +1,62 @@
+<div>
+    Nome
+    <input type="text" id="name" [(ngModel)]="client.name" maxlength="80">
+</div>
+
+<div>
+    Tipo
+    <select [(ngModel)]="client.type" [disabled]="isEditing">
+        <option value="FISICAL">Física</option>
+        <option value="LEGAL">Jurídica</option>
+    </select>
+</div>
+
+<div>
+    {{client.type == "FISICAL" ? "CPF" : "CNPJ"}}
+    <input type="text" id="name" [(ngModel)]="client.cpg" maxlength="18" [disabled]="isEditing">
+</div>
+
+<div>
+    {{client.type == "FISICAL" ? "RG" : "IE"}}
+    <input type="text" id="name" [(ngModel)]="client.identity" maxlength="15">
+</div>
+
+<div>
+    Grupo
+    <select id="group" [(ngModel)]="client.group.id">
+        <ng-container *ngFor="let group of groups">                  
+            <option [ngValue]="group.id">{{group.name}}</option>
+        </ng-container>
+    </select>
+</div>
+
+<div style='margin-top:30px;'>
+    Phones
+
+    <div>
+        Número
+        <input type="text" id="name" [(ngModel)]="phone.phoneNumber" maxlength="13">
+        <button (click)="addPhone()">Add</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor='let phone of client.phones'>
+                <td>{{phone.phoneNumber}}</td>
+                <td><a href="JavaScript:Void(0);" (click)="deletePhone(phone)">Excluir</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div style='margin-top:20px;'>
+    <button [disabled]="isSaving" (click)="cancel()">Cancelar</button>
+    <button [disabled]="isSaving" (click)="save()">Salvar</button>
+</div>

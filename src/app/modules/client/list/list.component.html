@@ -1,0 +1,39 @@
+<div style='margin-bottom:20px;'>
+    <a href="/client/new">Novo Cliente</a>
+</div>
+
+<app-table [(dataTable)]="dataTable" [(queryTerms)]="queryTerms" (searchFunction)="loadClients()">
+    <table table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Name</th>
+                <th>CPF/CNPJ</th>
+                <th>RG/IE</th>
+                <th>Grupo</th>
+                <th>Phones</th>
+                <th>Status</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor='let client of dataTable.content'>
+                <td>{{client.id}}</td>
+                <td>{{client.type}}</td>
+                <td>{{client.name}}</td>
+                <td>{{client.cpg}}</td>
+                <td>{{client.identity}}</td>
+                <td>{{client.group.name}}</td>
+                <td>{{getPhones(client)}}</td>
+                <td>{{client.status}}</td>
+                <td>
+                    <a href="/client/edit/{{client.id}}">Editar</a> | 
+                    <a href="JavaScript:Void(0);" (click)="delete(client)">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</app-table>

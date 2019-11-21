@@ -1,0 +1,47 @@
+<input type="text" [(ngModel)]="queryTerms.keyword" (ngModelChange)="countTimeToSearchKeyword()" placeholder="Pesquisar" aria-label="Pesquisar">
+
+<select [(ngModel)]="queryTerms.showInactiveRegisters" (change)="search()">
+    <option value="false">Somento Ativos</option>
+    <option value="true">Todos</option>
+</select>
+
+<div class="table-responsive" *ngIf="!queryTerms.isSearching" >
+    <ng-content select='[table]'></ng-content>
+</div>
+<div *ngIf="dataTable.content && dataTable.content.length == 0 && !queryTerms.isSearching" class="table-info">
+    <i class="fa fa-ban"></i> Nenhum registro encontrado
+</div>
+<div *ngIf="queryTerms.isSearching" class="table-info">
+    <i class="fa fa-spinner"></i> Buscando...
+</div>
+
+<div *ngIf="dataTable.content && dataTable.content.length > 0 && !queryTerms.isSearching" style='margin-top:20px;'>
+    Itens por página
+    
+    <select class="size" [(ngModel)]="dataTable.pageable.pageSize" (change)="changePageSize()">
+        <option value="10">10</option>
+        <option value="20" *ngIf="dataTable.content.length > 10">20</option>
+        <option value="30" *ngIf="dataTable.content.length > 20">30</option>
+        <option value="40" *ngIf="dataTable.content.length > 30">40</option>
+        <option value="50" *ngIf="dataTable.content.length > 40">50</option>
+        <option value="100" *ngIf="dataTable.content.length > 50">100</option>
+    </select>
+
+    <div>
+        {{rowInitCount()}} - {{rowEndCount()}} de {{dataTable.content.length + " " + (dataTable.content.length==1?"item":"itens")}}
+    </div>
+
+    <div>            
+        <input type="text" #pageModel="ngModel" [(ngModel)]="pageNumber" (ngModelChange)="changePageNumber()">
+
+        de {{dataTable.totalPages + " " + (dataTable.totalPages == 1?"página":"páginas")}}
+               
+        <button type="button" class="btn" (click)="addPageNumber(-1)">
+            <
+        </button>
+      
+        <button type="button" class="btn" (click)="addPageNumber(1)">
+            >
+        </button>
+    </div>
+</div>

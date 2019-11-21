@@ -1,0 +1,29 @@
+<div style='margin-bottom:20px;'>
+    <a href="/group/new">Novo Grupo</a>
+</div>
+
+<app-table [(dataTable)]="dataTable" [(queryTerms)]="queryTerms" (searchFunction)="loadGroups()">
+    <table table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor='let group of dataTable.content'>
+                <td>{{group.id}}</td>
+                <td>{{group.name}}</td>
+                <td>{{group.status}}</td>
+                <td>
+                    <a href="/group/edit/{{group.id}}">Editar</a> | 
+                    <a href="JavaScript:Void(0);" (click)="delete(group)">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</app-table>

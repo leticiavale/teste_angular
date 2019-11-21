@@ -1,0 +1,6 @@
+Nome <input type="text" id="name" [(ngModel)]="group.name" maxlength="30">
+
+<div style='margin-top:20px;'>
+    <button [disabled]="isSaving" (click)="cancel()">Cancelar</button>
+    <button [disabled]="isSaving" (click)="save()">Salvar</button>
+</div>
