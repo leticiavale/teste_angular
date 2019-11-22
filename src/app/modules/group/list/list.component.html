@@ -1,15 +1,11 @@
-<div style='margin-bottom:20px;'>
-    <a href="/group/new">Novo Grupo</a>
-</div>
-
-<app-table [(dataTable)]="dataTable" [(queryTerms)]="queryTerms" (searchFunction)="loadGroups()">
-    <table table>
+<app-table (newButtonAction)="new()" [(dataTable)]="dataTable" [(queryTerms)]="queryTerms" (searchFunction)="loadGroups()">
+    <table class="table" table>
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Status</th>
-                <th>Options</th>
+                <th class="width-150">Options</th>
             </tr>
         </thead>
 
@@ -19,11 +15,10 @@
                 <td>{{group.name}}</td>
                 <td>{{group.status}}</td>
                 <td>
-                    <a href="/group/edit/{{group.id}}">Editar</a> | 
-                    <a href="JavaScript:Void(0);" (click)="delete(group)">Excluir</a>
+                    <button type="button" class="btn btn-link" ngbTooltip="Editar" (click)="edit(group)"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-link" ngbTooltip="Inativar" (click)="delete(group)" *ngIf="group.status != 'INACTIVE'"><i class="fa fa-trash-o"></i></button> 
                 </td>
             </tr>
         </tbody>
-
     </table>
 </app-table>

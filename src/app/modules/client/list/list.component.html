@@ -1,9 +1,5 @@
-<div style='margin-bottom:20px;'>
-    <a href="/client/new">Novo Cliente</a>
-</div>
-
-<app-table [(dataTable)]="dataTable" [(queryTerms)]="queryTerms" (searchFunction)="loadClients()">
-    <table table>
+<app-table (newButtonAction)="new()" [(dataTable)]="dataTable" [(queryTerms)]="queryTerms" (searchFunction)="loadClients()">
+    <table class="table" table>
         <thead>
             <tr>
                 <th>ID</th>
@@ -29,8 +25,8 @@
                 <td>{{getPhones(client)}}</td>
                 <td>{{client.status}}</td>
                 <td>
-                    <a href="/client/edit/{{client.id}}">Editar</a> | 
-                    <a href="JavaScript:Void(0);" (click)="delete(client)">Excluir</a>
+                    <button type="button" class="btn btn-link" ngbTooltip="Editar" (click)="edit(client)"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-link" ngbTooltip="Inativar" (click)="delete(client)" *ngIf="client.status != 'INACTIVE'"><i class="fa fa-trash-o"></i></button> 
                 </td>
             </tr>
         </tbody>

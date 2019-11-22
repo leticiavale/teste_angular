@@ -1,29 +1,25 @@
-<div>
-    Nome
-    <input type="text" id="name" [(ngModel)]="client.name" maxlength="80">
+<div class="form-group">
+    <label for="name">Nome</label>
+    <input type="text" class="form-control" id="name" [(ngModel)]="client.name" maxlength="80">
 </div>
-
-<div>
-    Tipo
-    <select [(ngModel)]="client.type" [disabled]="isEditing">
+<div class="form-group">
+    <label for="type">Tipo</label>
+    <select id="type" class="form-control" [(ngModel)]="client.type" [disabled]="isEditing">
         <option value="FISICAL">Física</option>
         <option value="LEGAL">Jurídica</option>
     </select>
 </div>
-
-<div>
-    {{client.type == "FISICAL" ? "CPF" : "CNPJ"}}
-    <input type="text" id="name" [(ngModel)]="client.cpg" maxlength="18" [disabled]="isEditing">
+<div class="form-group">
+    <label for="cpg">{{client.type == "FISICAL" ? "CPF" : "CNPJ"}}</label>
+    <input type="text" class="form-control" id="cpg" [(ngModel)]="client.cpg" maxlength="18" [disabled]="isEditing">
 </div>
-
-<div>
-    {{client.type == "FISICAL" ? "RG" : "IE"}}
-    <input type="text" id="name" [(ngModel)]="client.identity" maxlength="15">
+<div class="form-group">
+    <label for="identity">{{client.type == "FISICAL" ? "RG" : "IE"}}</label>
+    <input type="text" class="form-control" id="identity" [(ngModel)]="client.identity" maxlength="15">
 </div>
-
-<div>
-    Grupo
-    <select id="group" [(ngModel)]="client.group.id">
+<div class="form-group">
+    <label for="group">Grupo</label>        
+    <select id="group" class="form-control" [(ngModel)]="client.group.id">
         <ng-container *ngFor="let group of groups">                  
             <option [ngValue]="group.id">{{group.name}}</option>
         </ng-container>
@@ -31,32 +27,39 @@
 </div>
 
 <div style='margin-top:30px;'>
-    Phones
+    <h4>Telefones</h4>
 
-    <div>
-        Número
-        <input type="text" id="name" [(ngModel)]="phone.phoneNumber" maxlength="13">
-        <button (click)="addPhone()">Add</button>
+    <div class="form-group {{col.col11()}} inline-block pr-2">
+        <label for="phoneNumber">Número</label>
+        <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="phone.phoneNumber" maxlength="13">
     </div>
 
-    <table>
+    <div class="{{col.col1()}} inline-block">
+        <button type="button" [disabled]="isSaving" class="btn btn-secondary btn-block" (click)="addPhone()">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+
+    <table class="table">
         <thead>
             <tr>
                 <th>Número</th>
-                <th>Opções</th>
+                <th class="width-80">Opções</th>
             </tr>
         </thead>
 
         <tbody>
             <tr *ngFor='let phone of client.phones'>
                 <td>{{phone.phoneNumber}}</td>
-                <td><a href="JavaScript:Void(0);" (click)="deletePhone(phone)">Excluir</a></td>
+                <td>
+                    <button class="btn btn-link" ngbTooltip="Excluir" (click)="deletePhone(phone)"><i class="fa fa-trash-o"></i></button>
+                </td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<div style='margin-top:20px;'>
-    <button [disabled]="isSaving" (click)="cancel()">Cancelar</button>
-    <button [disabled]="isSaving" (click)="save()">Salvar</button>
+<div class='mt-5'>
+    <button class="btn btn-primary mr-3 width-150"  [disabled]="isSaving" (click)="save()">Salvar</button>
+    <button class="btn btn-secondary width-150" [disabled]="isSaving" (click)="cancel()">Cancelar</button>
 </div>

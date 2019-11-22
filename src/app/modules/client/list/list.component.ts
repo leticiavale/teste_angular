@@ -6,6 +6,7 @@ import { Client } from '../../../model/client';
 import { Status } from '../../../utils/enum/status';
 import { DataTable } from '../../../shared/model/data-table';
 import { QueryTerms } from '../../../shared/model/query-terms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -22,7 +23,8 @@ export class ListComponent extends DestroyUtils implements OnInit {
   queryTerms:QueryTerms = new QueryTerms();
 
   constructor(public clientService:ClientService,
-              public errroHandlerService:ErrorHandlerService) { 
+              public errroHandlerService:ErrorHandlerService,
+              private router:Router) { 
     super();
   }
 
@@ -63,6 +65,14 @@ export class ListComponent extends DestroyUtils implements OnInit {
     return client.phones.map(function(elem){
         return elem.phoneNumber;
     }).join(" | ");
+  }
+
+  new() {
+    this.router.navigate(["/client/new"]);
+  }
+
+  edit(client:Client) {
+    this.router.navigate(["/client/edit/"+client.id]);
   }
 
 }

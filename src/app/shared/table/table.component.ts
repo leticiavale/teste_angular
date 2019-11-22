@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angu
 import { NgModel } from '@angular/forms';
 import { DataTable } from '../model/data-table';
 import { QueryTerms } from '../model/query-terms';
+import { ColClassService } from 'src/app/utils/col-class.service';
 
 @Component({
   selector: 'app-table',
@@ -15,13 +16,26 @@ export class TableComponent implements OnInit {
   @Input() dataTable:DataTable;
   @Input() queryTerms:QueryTerms;
 
+  @Output() newButtonAction = new EventEmitter();
   @Output() searchFunction = new EventEmitter();
+
+  @Input() noNewButton:boolean;
+
+  private _noPage:boolean = false;
+
+  @Input('noPage') 
+  get noPage(): boolean {
+    return this._noPage;
+  }
+  set noPage(value: boolean) {
+    this._noPage = "" + value !== "false";
+  }
 
   keywordSearchTimeOut:any;
 
   pageNumber:number = 1;
 
-  constructor() { }
+  constructor(private col:ColClassService) { }
 
   ngOnInit() {
   }
@@ -89,5 +103,9 @@ export class TableComponent implements OnInit {
 
   search() {    
     this.searchFunction.emit();
+  }
+
+  callNewAction() {
+    this.newButtonAction.emit();
   }
 }

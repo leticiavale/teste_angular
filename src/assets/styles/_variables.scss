@@ -1,0 +1,56 @@
+
+////////// COLOR SYSTEM //////////
+
+$blue:              #5E50F9;
+$indigo:            #6610f2;
+$purple:            #6a008a;
+$pink:              #E91E63;
+$red:               #f96868;
+$orange:            #f2a654;
+$yellow:            #d4c739;
+$green:             #339e48;
+$teal:              #58d8a3;
+$cyan:              #57c7d4;
+$black:             #000;
+$white:             #ffffff;
+$white-smoke:       #f2f7f8;
+$violet:            #41478a;
+$darkslategray :    #2e383e;
+$dodger-blue :      #3498db;
+$black-light:       #333;
+$blue-dark:         #282F3A;  
+$blue-light:        #4A586C;
+$blue-lighter:      #6C7E99;
+$gray:              #434a54;
+$gray-light:        #CDCDCD;
+$gray-lighter:      #E6E6E6;
+$gray-lightest:     #FAFAFA;
+$gray-dark:         #0f1531;
+
+
+$theme-colors: (
+  primary:         #248afd,
+  secondary:       #a3a4a5,
+  success:         #2C6C22,
+  success-light:   #BBF5BB,
+  info:            #68afff,
+  info-ligh:       #CCE8F4,
+  warning:         #746812,
+  warning-light:   #FFEAA9,
+  danger:          #A73139,
+  danger-light:    #EBC8C2,
+  light:           #f8f9fa,
+  dark:            #282f3a
+);
+
+////////// COLOR SYSTEM //////////
+
+////////// COLOR VARIABLES //////////
+$content-bg: rgb(241, 241, 241);
+$border-color: #c9ccd7;
+
+////////// COLOR VARIABLES //////////
+
+$font:     'Roboto', sans-serif;
+
+$default-font-size: .875rem; // 14px as base font size

@@ -1,0 +1,48 @@
+// TABLE
+
+.table {
+    margin: 0;
+    thead {
+        th {
+            border-top: 0;
+            border-bottom-width: 1px;
+            font-size: .875rem;
+            i {
+                margin-left: 0.325rem;
+            }
+        }
+    }
+    th {
+        text-align: left;
+        background-color:$gray-light;
+        padding:15px;
+        padding-left:20px;
+        padding-right:20px;
+        font-weight: 600;
+    }
+    td {
+        background-color:$white;
+        padding:10px;
+        padding-left:20px;
+        padding-right:20px;
+        border:0;
+        height:50px;
+    }
+    tbody {
+        tr:nth-child(1n+2) {
+            td {
+                border-top:1px solid $gray-lighter;
+            }
+        }
+        td {
+            button:nth-child(1n+2) {
+                margin-left: 8px;
+            }
+        }
+        tr:hover,tr:active,tr:focus {
+            td{
+                background-color:$gray-lightest;
+            }
+        }
+    }
+}

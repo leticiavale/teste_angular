@@ -8,6 +8,7 @@ import { Client } from '../../../model/client';
 import { Phone } from '../../../model/phone';
 import { ClientType } from '../../../utils/enum/client-type';
 import { Group } from '../../../model/group';
+import { ColClassService } from 'src/app/utils/col-class.service';
 
 @Component({
   selector: 'app-new',
@@ -29,7 +30,8 @@ export class NewComponent extends DestroyUtils implements OnInit {
               public groupService:GroupService,
               public errroHandlerService:ErrorHandlerService,
               private route: ActivatedRoute,
-              private router:Router) { 
+              private router:Router,
+              private col:ColClassService) { 
      super();
   }
 

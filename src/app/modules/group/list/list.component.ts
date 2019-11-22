@@ -6,6 +6,7 @@ import { Group } from '../../../model/group';
 import { Status } from '../../../utils/enum/status';
 import { DataTable } from '../../../shared/model/data-table';
 import { QueryTerms } from '../../../shared/model/query-terms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -22,7 +23,8 @@ export class ListComponent extends DestroyUtils implements OnInit {
   queryTerms:QueryTerms = new QueryTerms();
 
   constructor(public groupService:GroupService,
-              public errroHandlerService:ErrorHandlerService) { 
+              public errroHandlerService:ErrorHandlerService,
+              private router:Router) { 
     super();
   }
 
@@ -53,6 +55,14 @@ export class ListComponent extends DestroyUtils implements OnInit {
         this.errroHandlerService.handle(error);
       }
     );
+  }
+
+  new() {
+    this.router.navigate(["/group/new"]);
+  }
+
+  edit(group:Group) {
+    this.router.navigate(["/group/edit/"+group.id]);
   }
 
 }

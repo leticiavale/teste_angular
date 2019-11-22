@@ -1,47 +1,72 @@
-<input type="text" [(ngModel)]="queryTerms.keyword" (ngModelChange)="countTimeToSearchKeyword()" placeholder="Pesquisar" aria-label="Pesquisar">
 
-<select [(ngModel)]="queryTerms.showInactiveRegisters" (change)="search()">
-    <option value="false">Somento Ativos</option>
-    <option value="true">Todos</option>
-</select>
-
-<div class="table-responsive" *ngIf="!queryTerms.isSearching" >
-    <ng-content select='[table]'></ng-content>
-</div>
-<div *ngIf="dataTable.content && dataTable.content.length == 0 && !queryTerms.isSearching" class="table-info">
-    <i class="fa fa-ban"></i> Nenhum registro encontrado
-</div>
-<div *ngIf="queryTerms.isSearching" class="table-info">
-    <i class="fa fa-spinner"></i> Buscando...
-</div>
-
-<div *ngIf="dataTable.content && dataTable.content.length > 0 && !queryTerms.isSearching" style='margin-top:20px;'>
-    Itens por página
+<div class='table-container' [ngClass]="{'outline-border':outlineBorder}">
+        <div class="row">
+            <div class="{{!noNewButton?col.col10():col.col12()}}">
+                <div class="form-group">
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                    <input type="text" [(ngModel)]="queryTerms.keyword" (ngModelChange)="countTimeToSearchKeyword()" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!noNewButton" class="{{col.col2()}}">
+                <button type="button" class="btn btn-dark btn-icon-text btn-block" (click)="callNewAction()">
+                    Novo
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive" *ngIf="!queryTerms.isSearching" >
+            <ng-content select='[table]'></ng-content>
+        </div>
+        <div *ngIf="dataTable.content && dataTable.content.length == 0 && !queryTerms.isSearching" class="table-info">
+            <i class="fa fa-ban"></i> Nenhum registro encontrado
+        </div>
+        <div *ngIf="queryTerms.isSearching" class="table-info">
+            <i class="fa fa-spinner"></i> Buscando...
+        </div>
+        <div class="table-footer row" *ngIf="!_noPage && dataTable.content && dataTable.content.length > 0 && !queryTerms.isSearching">
+            <div class="col-6 col-md-4 col-lg-3 col-xl-3 col table-footer__size">
+                Itens por página
+                
+                <select class="size" [(ngModel)]="dataTable.pageable.pageSize" (change)="changePageSize()">
+                    <option value="10">10</option>
+                    <option value="20" *ngIf="dataTable.content.length > 10">20</option>
+                    <option value="30" *ngIf="dataTable.content.length > 20">30</option>
+                    <option value="40" *ngIf="dataTable.content.length > 30">40</option>
+                    <option value="50" *ngIf="dataTable.content.length > 40">50</option>
+                    <option value="100" *ngIf="dataTable.content.length > 50">100</option>
+                </select>
+            </div>
     
-    <select class="size" [(ngModel)]="dataTable.pageable.pageSize" (change)="changePageSize()">
-        <option value="10">10</option>
-        <option value="20" *ngIf="dataTable.content.length > 10">20</option>
-        <option value="30" *ngIf="dataTable.content.length > 20">30</option>
-        <option value="40" *ngIf="dataTable.content.length > 30">40</option>
-        <option value="50" *ngIf="dataTable.content.length > 40">50</option>
-        <option value="100" *ngIf="dataTable.content.length > 50">100</option>
-    </select>
+            <div class="col-md-2 col-lg-4 col-xl-5 col table-footer__detail d-none d-lg-block d-md-block">
+                {{rowInitCount()}} - {{rowEndCount()}} de {{dataTable.content.length + " " + (dataTable.content.length==1?"item":"itens")}}
+            </div>
+    
+            <div class="col-md-4 col-lg-3 col-xl-2 col table-footer__page d-none d-lg-block d-md-block">            
+                <input type="text" class="page form-control" #pageModel="ngModel" [(ngModel)]="pageNumber" (ngModelChange)="changePageNumber()">
+    
+                de {{dataTable.totalPages + " " + (dataTable.totalPages == 1?"página":"páginas")}}
+            </div>
+    
+            <div class="col-3 col-md-1 col-lg-1 col-xl-1 col table-footer__button">            
+                <button type="button" class="btn" (click)="addPageNumber(-1)" [ngClass]="{'text-muted':dataTable.first}">
+                    <i class="fa fa-caret-left"></i>
+                </button>
+            </div>
+    
+            <div class="col-3 col-md-1 col-lg-1 col-xl-1 col table-footer__button">   
+                <button type="button" class="btn" (click)="addPageNumber(1)" [ngClass]="{'text-muted':dataTable.last}">
+                    <i class="fa fa-caret-right"></i>
+                </button>
+            </div>
+        </div>
 
-    <div>
-        {{rowInitCount()}} - {{rowEndCount()}} de {{dataTable.content.length + " " + (dataTable.content.length==1?"item":"itens")}}
+        <div class="table-footer text-right font-size-10">
+            <input type="checkbox" [(ngModel)]="queryTerms.showInactiveRegisters" (ngModelChange)="search()" class="form-check-input" id="inactive-register">
+            <label class="form-check-label mt-1 text-muted" for="inactive-register">Exibir registros inativos</label>
+        </div>
     </div>
-
-    <div>            
-        <input type="text" #pageModel="ngModel" [(ngModel)]="pageNumber" (ngModelChange)="changePageNumber()">
-
-        de {{dataTable.totalPages + " " + (dataTable.totalPages == 1?"página":"páginas")}}
-               
-        <button type="button" class="btn" (click)="addPageNumber(-1)">
-            <
-        </button>
-      
-        <button type="button" class="btn" (click)="addPageNumber(1)">
-            >
-        </button>
-    </div>
-</div>
